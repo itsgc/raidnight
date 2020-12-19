@@ -12,4 +12,5 @@ def hello_world():
 
 @application.route('/testenv')
 def testenv():
-    return f"Content of TEST_ENV: {environ['TEST_ENV']}"
+    envTestEnv = environ.get('TEST_ENV', None)
+    return f"Content of TEST_ENV: {envTestEnv}"
