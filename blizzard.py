@@ -21,6 +21,14 @@ class BlizzardTools():
         self.session = requests.Session()
         self.auth = requests.auth.HTTPBasicAuth(self.client_id, self.client_secret)
         self.client_token = None
+        self.ranks = {0: "Guild Master",
+                      1: "Officer",
+                      2: "Officer Alt",
+                      3: "Raider",
+                      4: "Veteran",
+                      5: "Member",
+                      6: "Alt",
+                      7: "Initiate"}
 
     def _get(self, url=None, parameters=None, auth=None, response="json"):
         r = self.session.get(url=url, params=parameters, auth=auth, headers=self.headers,
@@ -69,3 +77,26 @@ class BlizzardTools():
                       "access_token": self.client_token["access_token"]}
         roster = self._get(url, parameters=parameters)
         return roster
+
+    def get_raiders(self, realm, guild_name):
+        roster = self.get_guild_roster(realm, guild_name)
+        members = roster["members"]
+        raiders = list()
+        for member in members:
+            rank = member["rank"]
+            char_name = member["character"]["name"].lower()
+            realm = member["character"]["realm"]["slug"]
+            if rank in [0, 1, 3]:
+                profile = self.get_character_profile(realm, char_name)
+                player_class = profile["character_class"]["name"]
+                player_spec = profile["active_spec"]["name"]
+                ilvl = profile["average_item_level"]
+                memberdetails = {"ilvl": ilvl,
+                                 "name": char_name,
+                                 "realm": realm,
+                                 "class": player_class,
+                                 "spec": player_spec,
+                                 "role": self.ranks[rank]}
+                print(memberdetails)
+                raiders.append(memberdetails)
+        return raiders
