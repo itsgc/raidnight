@@ -10,7 +10,6 @@ class BlizzardTools():
         self.domain = "api.blizzard.com"
         self.auth_domain = "battle.net"
         self.region = auth_data.get('region', "eu")
-        self.scope = auth_data['scope']
         self.base_url = f"https://{self.region}.{self.domain}"
         self.auth_url = f"https://{self.region}.{self.auth_domain}"
         self.client_id = auth_data['client_id']
