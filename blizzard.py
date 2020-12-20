@@ -84,16 +84,18 @@ class BlizzardTools():
         raiders = list()
         for member in members:
             rank = member["rank"]
-            char_name = member["character"]["name"].lower()
-            realm = member["character"]["realm"]["slug"]
+            char_slug = member["character"]["name"].lower()
+            realm_slug = member["character"]["realm"]["slug"]
             if rank in [0, 1, 3]:
-                profile = self.get_character_profile(realm, char_name)
+                profile = self.get_character_profile(realm_slug, char_slug)
+                char_name = profile["name"]
+                realm_name = profile["realm"]["name"]
                 player_class = profile["character_class"]["name"]
                 player_spec = profile["active_spec"]["name"]
                 ilvl = profile["average_item_level"]
                 memberdetails = {"ilvl": ilvl,
                                  "name": char_name,
-                                 "realm": realm,
+                                 "realm": realm_name,
                                  "class": player_class,
                                  "spec": player_spec,
                                  "role": self.ranks[rank]}
