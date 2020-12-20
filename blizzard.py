@@ -99,6 +99,5 @@ class BlizzardTools():
                                  "class": player_class,
                                  "spec": player_spec,
                                  "role": self.ranks[rank]}
-                print(memberdetails)
                 raiders.append(memberdetails)
         return raiders
