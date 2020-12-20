@@ -19,17 +19,13 @@ blizzardtools = BlizzardTools(auth_data)
 
 
 @application.route('/')
-def hello_world():
-    return 'Hello, World'
+def go_away():
+    response = {"status": "OK",
+                "message": "Unavailable"}
+    return jsonify(response)
 
 
-@application.route('/testenv')
-def testenv():
-    envTestEnv = environ.get('TEST_ENV', None)
-    return f"Content of TEST_ENV: {envTestEnv}"
-
-
-@application.route('/testjson/<realm>/<guild>')
+@application.route('/rostermanager/<realm>/<guild>')
 @basic_auth.required
 def testjson(realm, guild):
     response = blizzardtools.get_raiders(realm, guild)
