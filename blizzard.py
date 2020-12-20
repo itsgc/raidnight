@@ -29,6 +29,7 @@ class BlizzardTools():
                       5: "Member",
                       6: "Alt",
                       7: "Initiate"}
+        self.max_level = 60
 
     def _get(self, url=None, parameters=None, auth=None, response="json"):
         r = self.session.get(url=url, params=parameters, auth=auth, headers=self.headers,
@@ -86,7 +87,8 @@ class BlizzardTools():
             rank = member["rank"]
             char_slug = member["character"]["name"].lower()
             realm_slug = member["character"]["realm"]["slug"]
-            if rank in [0, 1, 3]:
+            char_level = member["character"]["level"]
+            if (char_level == self.max_level and rank in [0, 1, 3]):
                 profile = self.get_character_profile(realm_slug, char_slug)
                 char_name = profile["name"]
                 realm_name = profile["realm"]["name"]
