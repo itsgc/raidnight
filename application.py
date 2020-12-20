@@ -32,19 +32,5 @@ def testenv():
 @application.route('/testjson/<realm>/<guild>')
 @basic_auth.required
 def testjson(realm, guild):
-    # sampledata = list()
-    # samplemember = {"ilvl": 195,
-    #                 "name": "karmik",
-    #                 "realm": "sunstrider",
-    #                 "spec": "guardian",
-    #                 "role": "raider"}
-    # sampledata.append(samplemember)
-    # samplemember2 = {"ilvl": 151,
-    #                  "name": "ylima",
-    #                  "realm": "sunstrider",
-    #                  "spec": "protection",
-    #                  "role": "initiate"}
-    # sampledata.append(samplemember2)
-    # return jsonify(sampledata)
     response = blizzardtools.get_raiders(realm, guild)
     return jsonify(response)
