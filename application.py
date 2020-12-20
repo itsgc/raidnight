@@ -1,9 +1,15 @@
 from flask import Flask
 from flask import jsonify
+from flask_basicauth import BasicAuth
 from os import environ
 
 
 application = Flask(__name__)
+
+application.config['BASIC_AUTH_USERNAME'] = environ['BASIC_AUTH_USERNAME']
+application.config['BASIC_AUTH_PASSWORD'] = environ['BASIC_AUTH_PASSWORD']
+
+basic_auth = BasicAuth(application)
 
 
 @application.route('/')
@@ -18,6 +24,7 @@ def testenv():
 
 
 @application.route('/testjson')
+@basic_auth.required
 def testjson():
     sampledata = list()
     samplemember = {"ilvl": 195,
