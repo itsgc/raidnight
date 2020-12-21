@@ -1,6 +1,13 @@
 # raidnight
 a Flask web service that connects to Blizzard's WoW Profile API, fetches a guild roster and output a simplified json blob with a list of members, each row being a collection of key facts. Spawned from the Officer Team of EU-Boulderfist's "Limited Edition" Guild.
 
+# Basic Architecture
+In its current form, this intended to be used as the datasource for a Google Sheets through bradjasper's [ImportJSON](https://github.com/bradjasper/ImportJSON) custom script, as that's the user interface the Officer team is (so far) accustomed to.
+
+Data flow is roughly like this:
+
+[Profile API]--[Blizzard Developer Account]--[raidnight account on Blizzard Developer Portal]--[raidnight EB deployment]--[AWS Elastic Beanstalk]--[Google Sheets]--[ImportJSON]--[Guild Raid Attendance Sheet]
+
 # Features
 - Basic Authentication
 - Select only certain ranks (ie: only people promoted to Raiders rank)
