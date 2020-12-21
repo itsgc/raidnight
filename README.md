@@ -2,7 +2,7 @@
 a Flask web service that connects to Blizzard's WoW Profile API, fetches a guild roster and output a simplified json blob with a list of members, each row being a collection of key facts. Spawned from the Officer Team of EU-Boulderfist's "Limited Edition" Guild.
 
 # Basic Architecture
-In its current form, this intended to be used as a publicly reachable web service, exposing a REST endpoint (with basic authentication). Placing a HTTP GET to /rostermanager/<realm>/<guild> on the endpoint will yield a JSON list-of-collections.
+In its current form, intended to be used as a publicly reachable web service, exposing a REST endpoint (with basic authentication). Placing a HTTP GET to /rostermanager/<realm>/<guild> on the endpoint will yield a JSON list-of-collections.
   
 In turn, it is used as the datasource for a Google Sheets through bradjasper's [ImportJSON](https://github.com/bradjasper/ImportJSON) custom script, as that's the user interface the Officer team is (so far) accustomed to.
 
