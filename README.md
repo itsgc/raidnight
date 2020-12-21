@@ -8,7 +8,7 @@ a Flask web service that connects to Blizzard's WoW Profile API, fetches a guild
 - All secrets are ENV vars that can be passed in a cloud deployment system
 
 # TODO
-Check (Issues)[https://github.com/itsgc/raidnight/issues] for details but roughly
+Check [Issues](https://github.com/itsgc/raidnight/issues) for details but roughly
 - Include support for Discord so we can check if members have signed up to Guild's Discord
 - Track sign ups to Guild Events in-game (this is currently not in-scope for Blizzard's REST API footprint so we'll have to think of an alternative)
 - Import Guild Notes (also currently not in Blizzard's own API)
