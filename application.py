@@ -39,8 +39,6 @@ auth_data = {"client_id": environ.get("CLIENT_ID"),
 
 blizzardtools = BlizzardTools(auth_data)
 
-# raise GenericAPIError(message=e.message, status_code=500)
-
 # Custom Exceptions to return contextual HTTP error codes.
 
 
