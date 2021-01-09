@@ -34,6 +34,7 @@ class BlizzardTools():
     def _get(self, url=None, parameters=None, auth=None, response="json"):
         r = self.session.get(url=url, params=parameters, auth=auth, headers=self.headers,
                              cookies=self.jar)
+        r.raise_for_status()
         if response == "text":
             return r.text
         elif response == "json":
@@ -47,6 +48,7 @@ class BlizzardTools():
             r = self.session.post(url=url, headers=self.headers,
                                   cookies=self.jar, params=parameters,
                                   data=payload)
+        r.raise_for_status()
         if response == "text":
             return r.text
         elif response == "json":
