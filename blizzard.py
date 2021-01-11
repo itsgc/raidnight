@@ -1,3 +1,4 @@
+import datetime
 import requests
 
 
@@ -58,13 +59,20 @@ class BlizzardTools():
         url = f"{self.auth_url}/oauth/token"
         parameters = {"grant_type": "client_credentials"}
         self.client_token = self._get(url, auth=self.auth, parameters=parameters)
+        # set internal expiration time conservatively, 5 seconds before upstream
+        expiration_time = datetime.datetime.now() + datetime.timedelta(seconds=(self.client_token["expires_in"] - 86300))
+        self.client_token["expiration_time"] = expiration_time
         self.headers['Authorization'] = f'Bearer {self.client_token["access_token"]}'
         return self.client_token
 
+    def refresh_auth_token(self):
+        now = datetime.datetime.now()
+        if (self.client_token is None) or (self.client_token["expiration_time"] < now):
+            self.get_auth_token()
+
     def get_character_profile(self, realm, char_name):
         url = f"{self.base_url}/profile/wow/character/{realm}/{char_name}"
-        if self.client_token is None:
-            self.get_auth_token()
+        self.refresh_auth_token()
         parameters = {"namespace": f"profile-{self.region}",
                       "locale": "en_US",
                       "access_token": self.client_token["access_token"]}
@@ -73,8 +81,7 @@ class BlizzardTools():
 
     def get_guild_roster(self, realm, guild_name):
         url = f"{self.base_url}/data/wow/guild/{realm}/{guild_name}/roster"
-        if self.client_token is None:
-            self.get_auth_token()
+        self.refresh_auth_token()
         parameters = {"namespace": f"profile-{self.region}",
                       "locale": "en_US",
                       "access_token": self.client_token["access_token"]}
